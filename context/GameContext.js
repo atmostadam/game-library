@@ -1,5 +1,6 @@
 import { GameValidationException } from "../exception/GameValidationException.js";
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
+
 /**
  * The context for the game in reference to Inversion of Control, Shared Map Key/Values and Singleton
  * class lookup. This is a Singleton implementation.
@@ -52,7 +53,7 @@ export class GameContext {
      */
     static setImage(id) {
         if (null == id) {
-            var message = "GameValidationException -> NullPointerException -> NEVER pass null into setCacheImage";
+            var message = "GameValidationException -> NullPointerException -> NEVER pass null into setImage";
             console.error(message);
             throw new GameValidationException(message);
         }
@@ -67,20 +68,25 @@ export class GameContext {
 
     /**
      * Convenience method for set(key, value). This will use the class instance to look up the class name for the key
-     * and the class clazz for the value.
-     * Image object to set(key, value).
+     * and the class instance for the value.
      * 
-     * @param {class} clazz  The id of the image to retrieve from the HTML Document.
+     * @param {Object} instance  The instance of the class to store in value.
      */
-    static setClass(clazz) {
-        if (null == clazz) {
-            var message = "GameValidationException -> NullPointerException -> NEVER pass null into setCacheClass";
+    static setClass(instance) {
+        if (null == instance) {
+            var message = "GameValidationException -> NullPointerException -> NEVER pass null into setClass";
             console.error(message);
             throw new GameValidationException(message);
         }
-        GameContext.set(clazz.constructor.name, clazz);
+        GameContext.set(instance.constructor.name, instance);
     }
 
+    /**
+     * Gets a value pair using its key in the GameContext cache Map.
+     * 
+     * @param {any} key The key to search by
+     * @returns The value associated to the key
+     */
     static get(key) {
         if (!GameContext.instance.map.has(key)) {
             var message = "GameValidationException -> No entry exists in cache for key [" + key + "]";
@@ -90,34 +96,56 @@ export class GameContext {
         return GameContext.instance.map.get(key);
     }
 
+    /**
+     * Returns true when the GameContext cache Map contains the key else it returns false.
+     * 
+     * @param {any} key The key for the key/value pair in the GameContext cache Map.
+     * @returns true if contains key else false.
+     * */
     static contains(key) {
         return GameContext.instance.map.has(key);
     }
 
+    /**
+     * Deletes a key/value pair entry in the GameContext cache Map using key as the identifier.
+     * 
+     * @param {any} key The key for the key/value pair in the GameContext cache Map.
+     * @returns true if a key/value pair is deleted else false
+     */
     static delete(key) {
         return GameContext.instance.map.delete(key);
     }
 
+    /** Deletes all key/value pair entries in the GamaeContext cache Map. */
     static clear() {
         GameContext.instance.map.clear();
     }
 
+    /** Gets the canvas context from the GamaeContext cache Map. */
     static getCtx() {
         return GameContext.get("ctx");
     }
 
+    /** Gets the canvas from the GamaeContext cache Map. */
     static getCanvas() {
         return GameContext.get("canvas");
     }
 
+    /** Gets the canvas width from the GamaeContext cache Map. */
     static getWidth() {
         return GameContext.get("width");
     }
 
+    /** Gets the canvas height from the GamaeContext cache Map. */
     static getHeight() {
         return GameContext.get("height");
     }
 
+    /**
+     * Singleton design pattern method to get singleton instance.
+     * 
+     * @returns the instance.
+     */
     static getInstance() {
         return GameContext.instance;
     }

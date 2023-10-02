@@ -1,4 +1,4 @@
-import { GameContext } from "../context/GameContext.js"
+import { CanvasContextDecorator } from "../context/CanvasContextDecorator.js"
 
 /**
  * Draws an image onto the canvas.
@@ -8,7 +8,7 @@ import { GameContext } from "../context/GameContext.js"
  * @param {number} y     y coordinate on the canvas in pixels,
  */
 export function drawImage(image, x, y) {
-    GameContext.getCtx().drawImage(image, x, y);
+    CanvasContextDecorator.drawImage(image, x, y);
 }
 
 /**
@@ -19,7 +19,7 @@ export function drawImage(image, x, y) {
  * @param {number} y     y coordinate on the canvas in pixels,
  */
 export function drawImageById(id, x, y) {
-    GameContext.getCtx().drawImage(getImage(id), x, y);
+    CanvasContextDecorator.drawImage(getImage(id), x, y);
 }
 
 /**
@@ -36,7 +36,7 @@ export function drawImageById(id, x, y) {
  * @param {number} sh    Scaled height in pixels.
  */
 export function drawImage(image, ix, iy, w, h, x, y, sw, sh) {
-    GameContext.getCtx().drawImage(image, ix, iy, w, h, x, y, sw, sh);
+    CanvasContextDecorator.drawImage(image, ix, iy, w, h, x, y, sw, sh);
 }
 
 /**
@@ -53,7 +53,7 @@ export function drawImage(image, ix, iy, w, h, x, y, sw, sh) {
  * @param {number} sh    Scaled height in pixels.
  */
 export function drawImageById(id, ix, iy, w, h, x, y, sw, sh) {
-    GameContext.getCtx().drawImage(getImage(id), ix, iy, w, h, x, y, sw, sh);
+    CanvasContextDecorator.drawImageById(id, ix, iy, w, h, x, y, sw, sh);
 }
 
 /**
@@ -66,9 +66,7 @@ export function drawImageById(id, ix, iy, w, h, x, y, sw, sh) {
  * @param {number} y        y coordinate on the canvas in pixels.
  */
 export function drawText(text, font, color, x, y) {
-    GameContext.getCtx().font = font;
-    GameContext.getCtx().fillStyle = color;
-    GameContext.getCtx().fillText(text, x, y);
+    CanvasContextDecorator.drawText(text, font, color, x, y);
 }
 
 /**
@@ -82,11 +80,7 @@ export function drawText(text, font, color, x, y) {
  * @param {number} h       Height in pixels.
  */
 export function drawRectangle(size, color, x, y, w, h) {
-    GameContext.getCtx().beginPath();
-    GameContext.getCtx().lineWidth = size;
-    GameContext.getCtx().strokeStyle = color;
-    GameContext.getCtx().rect(x, y, w, h);
-    GameContext.getCtx().stroke();
+    CanvasContextDecorator.drawRectangle(size, color, x, y, w, h);
 }
 
 /**
@@ -99,37 +93,29 @@ export function drawRectangle(size, color, x, y, w, h) {
  * @param {number} h       Height in pixels.
  */
 export function drawFilledRectangle(color, x, y, w, h) {
-    GameContext.getCtx().fillStyle = color;
-    GameContext.getCtx().fillRect(x, y, w, h);
+    CanvasContextDecorator.drawFilledRectangle(color, x, y, w, h);
 }
 
 /**
  * Draws an unfilled circle onto the canvas.
  * 
- * @param {string} color The color to use when drawing on the canvas.
- * @param {number} x 
- * @param {number} y 
+ * @param {string} color   The color to use when drawing on the canvas.
+ * @param {number} x       x coordinate on the canvas in pixels.
+ * @param {number} y       y coordinate on the canvas in pixels.
  */
 export function drawCircle(color, x, y) {
-    GameContext.getCtx().beginPath();
-    GameContext.getCtx().arc(x, y, 65, 0, 2 * Math.PI);
-    GameContext.getCtx().strokeStyle = color;
-    GameContext.getCtx().lineWidth = 10;
-    GameContext.getCtx().stroke();
+    CanvasContextDecorator.drawCircle(color, x, y);
 }
 
 /**
  * Draws a filled circle onto the canvas.
  * 
  * @param {string} color The color to use when drawing on the canvas.
- * @param {number} x 
- * @param {number} y 
+ * @param {number} x       x coordinate on the canvas in pixels.
+ * @param {number} y       y coordinate on the canvas in pixels.
  */
 export function drawFilledCircle(color, x, y) {
-    GameContext.getCtx().beginPath();
-    GameContext.getCtx().arc(x, y, 65, 0, 2 * Math.PI);
-    GameContext.getCtx().fillStyle = color;
-    GameContext.getCtx().fill();
+    CanvasContextDecorator.drawFilledCircle(color, x, y);
 }
 
 /**
@@ -138,28 +124,5 @@ export function drawFilledCircle(color, x, y) {
  * @param {Image} image The Image Object created from the HTML Document.
  */
 export function drawBackground(image) {
-    GameContext.getCtx().drawImage(
-        image,
-        0,
-        0,
-        GameContext.getWidth(),
-        GameContext.getHeight(),
-        0,
-        0,
-        GameContext.getWidth(),
-        GameContext.getHeight());
-}
-
-/**
- * Gets Image Object from the HTML canvas when given the string id to search by.
- * 
- * @param {strings} id The id of the image to retrieve from the HTML Document.
- * @returns The Image Object from the HTML Document.
- */
-export function getImage(id) {
-    const image = document.getElementById(id);
-    if (null == image) {
-        throw new GameValidationException("Image [" + id + "] is missing from Document body.");
-    }
-    return image;
+    CanvasContextDecorator.drawBackground(image);
 }
