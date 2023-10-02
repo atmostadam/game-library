@@ -5,13 +5,14 @@ import { GameDeveloperException } from "../exception/GameDeveloperException.js";
  * class lookup. This is a Singleton implementation.
  */
 export class GameContext {
-    constructor(canvas, canvasContext, bounds) {
+    constructor(debug, canvas, canvasContext, bounds) {
         if (!GameContext.instance) {
             GameContext.instance = this;
         }
 
         this.map = new Map();
 
+        GameContext.set("debug", debug);
         GameContext.set("canvas", canvas);
         GameContext.set("ctx", canvasContext);
         GameContext.set("canvasContext", canvasContext);
