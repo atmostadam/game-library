@@ -14,7 +14,7 @@ export function drawImage(image, x, y) {
 /**
  * Draws an image onto the canvas.
  * 
- * @param {Image}  id    The id of the image to retrieve from the HTML Document.
+ * @param {string}  id    The id of the image to retrieve from the HTML Document.
  * @param {number} x     x coordinate on the canvas in pixels,
  * @param {number} y     y coordinate on the canvas in pixels,
  */
@@ -42,7 +42,7 @@ export function drawImage(image, ix, iy, w, h, x, y, sw, sh) {
 /**
  * Draws an image onto the canvas.
  * 
- * @param {Image}  id    The id of the image to retrieve from the HTML Document.
+ * @param {string} id    The id of the image to retrieve from the HTML Document.
  * @param {number} ix    If cropping this is the x value of the crop in pixels, else 0.
  * @param {number} iy    If cropping this is the y value of the crop in pixels, else 0.
  * @param {number} w     Width in pixels.
@@ -74,12 +74,12 @@ export function drawText(text, font, color, x, y) {
 /**
  * Draws an unfilled rectangle onto the canvas.
  * 
- * @param {*} size    The width of the rectangle line.
- * @param {*} color   The color to use when drawing on the canvas.
- * @param {*} x       x coordinate on the canvas in pixels.
- * @param {*} y       y coordinate on the canvas in pixels.
- * @param {*} w       Width in pixels.
- * @param {*} h       Height in pixels.
+ * @param {number} size    The width of the rectangle line.
+ * @param {string} color   The color to use when drawing on the canvas.
+ * @param {number} x       x coordinate on the canvas in pixels.
+ * @param {number} y       y coordinate on the canvas in pixels.
+ * @param {number} w       Width in pixels.
+ * @param {number} h       Height in pixels.
  */
 export function drawRectangle(size, color, x, y, w, h) {
     GameContext.getCtx().beginPath();
@@ -92,18 +92,24 @@ export function drawRectangle(size, color, x, y, w, h) {
 /**
  * Draws a filled rectangled onto the canvas.
  * 
- * @param {*} color   The color to use when drawing on the canvas.
- * @param {*} x       x coordinate on the canvas in pixels.
- * @param {*} y       y coordinate on the canvas in pixels.
- * @param {*} w       Width in pixels.
- * @param {*} h       Height in pixels.
+ * @param {string} color   The color to use when drawing on the canvas.
+ * @param {number} x       x coordinate on the canvas in pixels.
+ * @param {number} y       y coordinate on the canvas in pixels.
+ * @param {number} w       Width in pixels.
+ * @param {number} h       Height in pixels.
  */
 export function drawFilledRectangle(color, x, y, w, h) {
     GameContext.getCtx().fillStyle = color;
     GameContext.getCtx().fillRect(x, y, w, h);
 }
 
-/** Unfilled. */
+/**
+ * Draws an unfilled circle onto the canvas.
+ * 
+ * @param {string} color The color to use when drawing on the canvas.
+ * @param {number} x 
+ * @param {number} y 
+ */
 export function drawCircle(color, x, y) {
     GameContext.getCtx().beginPath();
     GameContext.getCtx().arc(x, y, 65, 0, 2 * Math.PI);
@@ -112,6 +118,13 @@ export function drawCircle(color, x, y) {
     GameContext.getCtx().stroke();
 }
 
+/**
+ * Draws a filled circle onto the canvas.
+ * 
+ * @param {string} color The color to use when drawing on the canvas.
+ * @param {number} x 
+ * @param {number} y 
+ */
 export function drawFilledCircle(color, x, y) {
     GameContext.getCtx().beginPath();
     GameContext.getCtx().arc(x, y, 65, 0, 2 * Math.PI);
@@ -119,19 +132,30 @@ export function drawFilledCircle(color, x, y) {
     GameContext.getCtx().fill();
 }
 
+/**
+ * Draws an image that assumes the image is the full width and height of the canvas (i.e. the Background).
+ * 
+ * @param {Image} image The Image Object created from the HTML Document.
+ */
 export function drawBackground(image) {
     GameContext.getCtx().drawImage(
         image,
         0,
         0,
-        Game.getWidth(),
-        Game.getHeight(),
+        GameContext.getWidth(),
+        GameContext.getHeight(),
         0,
         0,
-        Game.getWidth(),
-        Game.getHeight());
+        GameContext.getWidth(),
+        GameContext.getHeight());
 }
 
+/**
+ * Gets Image Object from the HTML canvas when given the string id to search by.
+ * 
+ * @param {strings} id The id of the image to retrieve from the HTML Document.
+ * @returns The Image Object from the HTML Document.
+ */
 export function getImage(id) {
     const image = document.getElementById(id);
     if (null == image) {

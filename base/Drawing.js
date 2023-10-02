@@ -4,6 +4,10 @@ import { drawImage, drawText, drawRectangle, drawFilledRectangle, drawCircle, dr
 import { GameContext } from "../context/GameContext.js";
 
 export class Drawing {
+    constructor() {
+
+    }
+
     load() {
         throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override load()");
     }
