@@ -1,6 +1,6 @@
 import { GameValidationException } from "../exception/GameValidationException.js";
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
-import { Log } from "../log/Log.js";
+import { Log } from "../logger/Log.js";
 
 /**
  * The context for the game in reference to Inversion of Control, Shared Map Key/Values and Singleton

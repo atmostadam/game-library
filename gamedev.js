@@ -1,5 +1,5 @@
 import { GameContext } from "./context/GameContext.js";
-import { Log } from "./log/Log.js";
+import { Log } from "./logger/Log.js";
 import { BootLoader } from "./load/BootLoader.js";
 import { GameDeveloperException } from "./exception/GameDeveloperException.js";
 
