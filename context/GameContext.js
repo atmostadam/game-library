@@ -13,7 +13,6 @@ export class GameContext {
         }
 
         this.map = new Map();
-        GameContext.set("debug", debug);
 
         Log.info("Starting GameContext", this);
 
@@ -85,7 +84,7 @@ export class GameContext {
     }
 
     /**
-     * Gets a value pair using its key in the GameContext cache Map.
+     * Gets a value pair using its key in the GameContext cache Map. This throws an exception if no key.
      * 
      * @param {any} key The key to search by
      * @returns The value associated to the key
@@ -96,6 +95,16 @@ export class GameContext {
             console.error(message);
             throw new GameValidationException(message);
         }
+        return GameContext.instance.map.get(key);
+    }
+
+    /**
+     * Gets a value pair using its key in the GameContext cache Map. This returns a null if no key.
+     *  
+     * @param {any} key The key to search by
+     * @returns The value associated to the key or null
+     */
+    static getNoFail(key) {
         return GameContext.instance.map.get(key);
     }
 

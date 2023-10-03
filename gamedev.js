@@ -1,7 +1,6 @@
 import { GameContext } from "./context/GameContext.js";
 import { Log } from "./logger/Log.js";
 import { BootLoader } from "./load/BootLoader.js";
-import { GameDeveloperException } from "./exception/GameDeveloperException.js";
 
 window.addEventListener("load", function () {
     var lastTime = performance.now();
@@ -15,15 +14,14 @@ window.addEventListener("load", function () {
     } else {
         var debug = false;
     }
-    var logEnabled = true;
 
-    new Log(logEnabled, debug)
+    new Log(debug);
     new GameContext(debug, canvas, canvasContext, bounds);
 
+    while (null == GameContext.getNoFail("GameLoop"));
 
+    const gameLoop = GameContext.get("GameLoop");
 
-    /*
-    const gameLoop = new GameLoop(canvasContext);
     function animate() {
         try {
             const time = performance.now();
@@ -33,21 +31,20 @@ window.addEventListener("load", function () {
                 return;
             }
 
-            gameLoop.update();
-            gameLoop.draw();
+            canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+            game.update();
+            game.draw();
 
             window.requestAnimationFrame(animate);
 
             lastTime = time;
         } catch (e) {
-            canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             console.error("APPLICATION HAS CRASHED!", e, this);
             throw e;
         }
     }
     animate();
-    */
-    // Keep custom per game for now.
 });
 
 class GameLoop {

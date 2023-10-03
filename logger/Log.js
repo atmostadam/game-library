@@ -1,13 +1,13 @@
 import { GameValidationException } from "../exception/GameValidationException.js";
 
 export class Log {
-    constructor(enabled, debug) {
+    constructor(debug) {
         if (!Log.instance) {
             Log.instance = this;
         }
 
-        this.enabled = enabled;
         this.debug = debug;
+        this.enabled = true;
 
         Log.info("Logger has been initialized", this);
 
