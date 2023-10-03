@@ -1,22 +1,7 @@
 import { GameContext } from "./context/GameContext.js";
 import { Log } from "./log/Log.js";
-
-class GameLoop {
-    constructor(canvasContext) {
-        this.canvasContext = canvasContext;
-        this.tick = 0;
-    }
-
-    update() {
-        this.tick++;
-        Log.debug("[" + this.tick + "] GameLoop -> update()", this);
-        this.canvasContext.clearRect(0, 0, GameContext.getWidth(), GameContext.getHeight());
-    }
-
-    draw() {
-        Log.debug("[" + this.tick + "] GameLoop -> draw()", this);
-    }
-}
+import { BootLoader } from "./load/BootLoader.js";
+import { GameDeveloperException } from "./exception/GameDeveloperException.js";
 
 window.addEventListener("load", function () {
     var lastTime = performance.now();
@@ -31,7 +16,7 @@ window.addEventListener("load", function () {
         var debug = false;
     }
 
-    new Log(debug);
+    new Log(debug)
     new GameContext(debug, canvas, canvasContext, bounds);
     const gameLoop = new GameLoop(canvasContext);
 
@@ -58,3 +43,27 @@ window.addEventListener("load", function () {
     }
     animate();
 });
+
+class GameLoop {
+    constructor(canvasContext) {
+        this.canvasContext = canvasContext;
+        this.tick = 0;
+        new BootLoader();
+        if (GameContext.get("MyGamesClasses").length == 0) {
+            Log.fatal("The developer forgot to configure game classes in BootLoader.", this);
+        }
+        this.myGamesClasses = GameContext.get("MyGamesClasses");
+    }
+
+    update() {
+        this.tick++;
+        Log.debug("[" + this.tick + "] GameLoop -> update()", this);
+        this.canvasContext.clearRect(0, 0, GameContext.getWidth(), GameContext.getHeight());
+        this.myGamesClasses.forEach(e => e.update(tick));
+    }
+
+    draw() {
+        Log.debug("[" + this.tick + "] GameLoop -> draw()", this);
+        this.myGamesClasses.forEach(e => e.draw());
+    }
+}

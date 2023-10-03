@@ -15,12 +15,6 @@ export class GameContext {
         this.map = new Map();
         GameContext.set("debug", debug);
 
-        if ("debug" == document.title) {
-            var debug = true;
-        } else {
-            var debug = false;
-        }
-
         Log.info("Starting GameContext", this);
 
         GameContext.set("canvas", canvas);
