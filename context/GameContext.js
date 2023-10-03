@@ -7,18 +7,23 @@ import { Log } from "../logger/Log.js";
  * class lookup. This is a Singleton implementation.
  */
 export class GameContext {
-    constructor(debug, canvas, canvasContext, bounds) {
+    constructor(canvas, canvasContext) {
         if (!GameContext.instance) {
             GameContext.instance = this;
         }
 
         this.map = new Map();
+        new Log("debug" == document.title ? true : false);
 
         Log.info("Starting GameContext", this);
 
+        const bounds = canvas.getBoundingClientRect();
+
+        GameContext.set("Log", Log.getInstance());
         GameContext.set("canvas", canvas);
         GameContext.set("ctx", canvasContext);
         GameContext.set("canvasContext", canvasContext);
+        GameContext.set("bounds", bounds);
         GameContext.set("width", canvas.width);
         GameContext.set("height", canvas.height);
 
