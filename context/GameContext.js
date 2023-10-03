@@ -1,5 +1,6 @@
 import { GameValidationException } from "../exception/GameValidationException.js";
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
+import { Log } from "../log/Log.js";
 
 /**
  * The context for the game in reference to Inversion of Control, Shared Map Key/Values and Singleton
@@ -12,8 +13,16 @@ export class GameContext {
         }
 
         this.map = new Map();
-
         GameContext.set("debug", debug);
+
+        if ("debug" == document.title) {
+            var debug = true;
+        } else {
+            var debug = false;
+        }
+
+        Log.info("Starting GameContext", this);
+
         GameContext.set("canvas", canvas);
         GameContext.set("ctx", canvasContext);
         GameContext.set("canvasContext", canvasContext);
