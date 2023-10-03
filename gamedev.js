@@ -15,11 +15,15 @@ window.addEventListener("load", function () {
     } else {
         var debug = false;
     }
+    var logEnabled = true;
 
-    new Log(debug)
+    new Log(logEnabled, debug)
     new GameContext(debug, canvas, canvasContext, bounds);
-    const gameLoop = new GameLoop(canvasContext);
 
+
+
+    /*
+    const gameLoop = new GameLoop(canvasContext);
     function animate() {
         try {
             const time = performance.now();
@@ -42,6 +46,8 @@ window.addEventListener("load", function () {
         }
     }
     animate();
+    */
+    // Keep custom per game for now.
 });
 
 class GameLoop {
