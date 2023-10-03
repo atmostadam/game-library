@@ -1,4 +1,3 @@
-import { GameValidationException } from "../exception/GameValidationException.js";
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 import { drawImage, drawText, drawRectangle, drawFilledRectangle, drawCircle, drawFilledCircle, getImage } from "../util/DrawingUtils.js";
 import { GameContext } from "../context/GameContext.js";

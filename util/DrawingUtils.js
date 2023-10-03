@@ -7,7 +7,7 @@ import { CanvasContextDecorator } from "../context/CanvasContextDecorator.js"
  * @param {number} x     x coordinate on the canvas in pixels,
  * @param {number} y     y coordinate on the canvas in pixels,
  */
-export function drawImage(image, x, y) {
+export function drawImageSimple(image, x, y) {
     CanvasContextDecorator.drawImage(image, x, y);
 }
 
