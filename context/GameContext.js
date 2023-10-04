@@ -1,6 +1,7 @@
 import { GameValidationException } from "../exception/GameValidationException.js";
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 import { Log } from "../logger/Log.js";
+import { CanvasContextDecorator } from "../context/CanvasContextDecorator.js";
 
 /**
  * The context for the game in reference to Inversion of Control, Shared Map Key/Values and Singleton
@@ -26,6 +27,7 @@ export class GameContext {
         GameContext.set("bounds", bounds);
         GameContext.set("width", canvas.width);
         GameContext.set("height", canvas.height);
+        GameContext.setClass(new CanvasContextDecorator(canvasContext));
 
         if (canvas.width != bounds.width || canvas.height != bounds.height) {
             throw new GameDeveloperException("Browser auto-resizing to a different resolution is not yet supported!");

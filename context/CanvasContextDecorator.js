@@ -3,13 +3,7 @@ import { GameValidationException } from "../exception/GameValidationException.js
 
 export class CanvasContextDecorator {
     constructor(canvasContext) {
-        if (!CanvasContextDecorator.instance) {
-            CanvasContextDecorator.instance = this;
-        }
-
         this.canvasContext = canvasContext;
-
-        return CanvasContextDecorator.instance;
     }
 
     /**
@@ -19,8 +13,8 @@ export class CanvasContextDecorator {
      * @param {number} x     x coordinate on the canvas in pixels.
      * @param {number} y     y coordinate on the canvas in pixels.
      * */
-    static drawImage(image, x, y) {
-        CanvasContextDecorator.instance.drawImage(image, x, y);
+    drawImageSimple(image, x, y) {
+        this.canvasContext.drawImage(image, x, y);
     }
 
     /**
@@ -30,8 +24,8 @@ export class CanvasContextDecorator {
      * @param {number} x     x coordinate on the canvas in pixels,
      * @param {number} y     y coordinate on the canvas in pixels,
      */
-    static drawImageById(id, x, y) {
-        CanvasContextDecorator.instance.drawImage(CanvasContextDecorator.instance.getImage(id), x, y);
+    drawImageByIdSimple(id, x, y) {
+        this.canvasContext.drawImage(this.getImage(id), x, y);
     }
 
     /**
@@ -47,8 +41,8 @@ export class CanvasContextDecorator {
      * @param {number} sw    Scaled width in pixels.
      * @param {number} sh    Scaled height in pixels.
      */
-    static drawImage(image, ix, iy, w, h, x, y, sw, sh) {
-        CanvasContextDecorator.instance.drawImage(image, ix, iy, w, h, x, y, sw, sh);
+    drawImage(image, ix, iy, w, h, x, y, sw, sh) {
+        this.canvasContext.drawImage(image, ix, iy, w, h, x, y, sw, sh);
     }
 
     /**
@@ -64,8 +58,8 @@ export class CanvasContextDecorator {
      * @param {number} sw    Scaled width in pixels.
      * @param {number} sh    Scaled height in pixels.
      */
-    static drawImageById(id, ix, iy, w, h, x, y, sw, sh) {
-        CanvasContextDecorator.instance.drawImage(CanvasContextDecorator.instance.getImage(id), ix, iy, w, h, x, y, sw, sh);
+    drawImageById(id, ix, iy, w, h, x, y, sw, sh) {
+        this.canvasContext.drawImage(this.getImage(id), ix, iy, w, h, x, y, sw, sh);
     }
 
     /**
@@ -77,10 +71,10 @@ export class CanvasContextDecorator {
      * @param {number} x        x coordinate on the canvas in pixels.
      * @param {number} y        y coordinate on the canvas in pixels.
      */
-    static drawText(text, font, color, x, y) {
-        CanvasContextDecorator.instance.font = font;
-        CanvasContextDecorator.instance.fillStyle = color;
-        CanvasContextDecorator.instance.fillText(text, x, y);
+    drawText(text, font, color, x, y) {
+        this.canvasContext.font = font;
+        this.canvasContext.fillStyle = color;
+        this.canvasContext.fillText(text, x, y);
     }
 
     /**
@@ -93,12 +87,12 @@ export class CanvasContextDecorator {
      * @param {number} w       Width in pixels.
      * @param {number} h       Height in pixels.
      */
-    static drawRectangle(size, color, x, y, w, h) {
-        CanvasContextDecorator.instance.beginPath();
-        CanvasContextDecorator.instance.lineWidth = size;
-        CanvasContextDecorator.instance.strokeStyle = color;
-        CanvasContextDecorator.instance.rect(x, y, w, h);
-        CanvasContextDecorator.instance.stroke();
+    drawRectangle(size, color, x, y, w, h) {
+        this.canvasContext.beginPath();
+        this.canvasContext.lineWidth = size;
+        this.canvasContext.strokeStyle = color;
+        this.canvasContext.rect(x, y, w, h);
+        this.canvasContext.stroke();
     }
 
     /**
@@ -110,9 +104,9 @@ export class CanvasContextDecorator {
      * @param {number} w       Width in pixels.
      * @param {number} h       Height in pixels.
      */
-    static drawFilledRectangle(color, x, y, w, h) {
-        CanvasContextDecorator.instance.fillStyle = color;
-        CanvasContextDecorator.instance.fillRect(x, y, w, h);
+    drawFilledRectangle(color, x, y, w, h) {
+        this.canvasContext.fillStyle = color;
+        this.canvasContext.fillRect(x, y, w, h);
     }
 
     /**
@@ -122,12 +116,12 @@ export class CanvasContextDecorator {
      * @param {number} x       x coordinate on the canvas in pixels.
      * @param {number} y       y coordinate on the canvas in pixels.
      */
-    static drawCircle(color, x, y) {
-        CanvasContextDecorator.instance.beginPath();
-        CanvasContextDecorator.instance.arc(x, y, 65, 0, 2 * Math.PI);
-        CanvasContextDecorator.instance.strokeStyle = color;
-        CanvasContextDecorator.instance.lineWidth = 10;
-        CanvasContextDecorator.instance.stroke();
+    drawCircle(color, x, y) {
+        this.canvasContext.beginPath();
+        this.canvasContext.arc(x, y, 65, 0, 2 * Math.PI);
+        this.canvasContext.strokeStyle = color;
+        this.canvasContext.lineWidth = 10;
+        this.canvasContext.stroke();
     }
 
     /**
@@ -137,11 +131,11 @@ export class CanvasContextDecorator {
      * @param {number} x       x coordinate on the canvas in pixels.
      * @param {number} y       y coordinate on the canvas in pixels.
      */
-    static drawFilledCircle(color, x, y) {
-        CanvasContextDecorator.instance.beginPath();
-        CanvasContextDecorator.instance.arc(x, y, 65, 0, 2 * Math.PI);
-        CanvasContextDecorator.instance.fillStyle = color;
-        CanvasContextDecorator.instance.fill();
+    drawFilledCircle(color, x, y) {
+        this.canvasContext.beginPath();
+        this.canvasContext.arc(x, y, 65, 0, 2 * Math.PI);
+        this.canvasContext.fillStyle = color;
+        this.canvasContext.fill();
     }
 
     /**
@@ -149,8 +143,8 @@ export class CanvasContextDecorator {
      * 
      * @param {Image} image The Image Object created from the HTML Document.
      */
-    static drawBackground(image) {
-        CanvasContextDecorator.instance.drawImage(
+    drawBackground(image) {
+        this.canvasContext.drawImage(
             image,
             0,
             0,
@@ -162,14 +156,6 @@ export class CanvasContextDecorator {
             GameContext.getHeight());
     }
 
-    /**
-     * Singleton design pattern method to get singleton instance.
-     * 
-     * @returns the instance.
-     */
-    static getInstance() {
-        return CanvasContextDecorator.instance;
-    }
 
     /**
      * Gets Image Object from the HTML canvas when given the string id to search by.
@@ -183,5 +169,14 @@ export class CanvasContextDecorator {
             throw new GameValidationException("Image [" + id + "] is missing from Document body.");
         }
         return image;
+    }
+
+    /**
+     * Singleton design pattern method to get singleton instance.
+     * 
+     * @returns the instance.
+     */
+    static getInstance() {
+        return CanvasContextDecorator.instance;
     }
 }
