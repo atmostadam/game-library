@@ -1,4 +1,6 @@
-export class AnimateText {
+import { Drawing } from "./Drawing.js";
+
+export class AnimateText extends Drawing {
     /**
      * Draw text onto the canvas.
      * 

@@ -53,6 +53,18 @@ export class Drawing {
         this.getCtxDecorator().drawImage(this.image, 0, 0, this.getWidth(), this.getHeight(), 0, 0, this.getWidth(), this.getHeight());
     }
 
+    /** See if click condition is true. */
+    onClick(x, y) {
+        if (between(x, this.x, this.x + this.w) && between(y, this.y, this.y + this.h)) {
+            this.click();
+        }
+    }
+
+    /** When clicked. */
+    click() {
+
+    }
+
     getImage(id) {
         return getImage(id);
     }
