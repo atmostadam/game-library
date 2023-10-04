@@ -27,7 +27,9 @@ export class GameContext {
         GameContext.set("bounds", bounds);
         GameContext.set("width", canvas.width);
         GameContext.set("height", canvas.height);
+
         GameContext.setClass(new CanvasContextDecorator(canvasContext));
+        Log.info("Loaded CanvasContextDecorator(canvasContext)", this);
 
         if (canvas.width != bounds.width || canvas.height != bounds.height) {
             throw new GameDeveloperException("Browser auto-resizing to a different resolution is not yet supported!");

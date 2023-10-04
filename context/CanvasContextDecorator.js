@@ -156,6 +156,15 @@ export class CanvasContextDecorator {
             GameContext.getHeight());
     }
 
+    /**
+     * Draws a filled rectangle that is the size of the canvas onto the canvas.
+     * 
+     * @param {string} color   The color to use when drawing on the canvas.
+     */
+    drawFilledBackground(color) {
+        this.canvasContext.fillStyle = color;
+        this.canvasContext.fillRect(0, 0, GameContext.getWidth(), GameContext.getHeight());
+    }
 
     /**
      * Gets Image Object from the HTML canvas when given the string id to search by.

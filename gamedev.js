@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
 
             window.requestAnimationFrame(animate);
 
-            if(!gameLoop) {
+            if (!gameLoop) {
                 console.log("[WARN] gameLoop has not yet been registered. Game implementation has not called registerGameLoop(loop) function.");
             }
 
@@ -34,7 +34,7 @@ window.addEventListener("load", function () {
                 lastTime = time;
             }
         } catch (e) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvasContext.clearRect(0, 0, canvas.width, canvas.height);
             console.error("APPLICATION HAS CRASHED!", e, this);
             throw e;
         }
