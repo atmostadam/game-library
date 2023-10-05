@@ -20,44 +20,16 @@ export class GameContext {
 
         this.map = new Map();
 
-        //const bounds = canvas.getBoundingClientRect();
-        //const cw = canvas.width;
-        //const bw = bounds.width;
-        //const ch = canvas.height;
-        //const bh = bounds.height;
-
-        //GameContext.set("width", cw);
-        //GameContext.set("height", ch);
-        //GameContext.set("boundsW", ch);
-        //GameContext.set("boundsH", bh);
-        //canvas.width = bw;
-        //canvas.height = bh;
-
         GameContext.set("Log", new Log("debug" == document.title ? true : false));
         Log.info("Starting GameContext", this);
 
         GameContext.setClass(new Constants());
-
-        //GameContext.set("bounds", bounds);
 
         GameContext.setClass(new CanvasContextDecorator(canvasContext));
         GameContext.setClass(new CanvasDecorator(canvas));
 
         GameContext.setClass(new MouseListener());
         GameContext.setClass(new KeyboardListener());
-
-
-        /*
-        if (cw != bw && Math.ceil(cw) != Math.ceil(bw) && Math.floor(cw) != Math.floor(bw)) {
-            throw new GameDeveloperException("Application requires [" + cw + "x" + ch + "]. Browser resized to [" + bw + "x" + bh +
-                "] which crashed the application. Browser auto-resizing to a different resolution is not yet supported!");
-        }
-
-        if (ch != bh && Math.ceil(ch) != Math.ceil(bh) && Math.floor(ch) != Math.floor(bh)) {
-            throw new GameDeveloperException("Application requires [" + cw + "x" + ch + "]. Browser resized to [" + bw + "x" + bh +
-                "] which crashed the application. Browser auto-resizing to a different resolution is not yet supported!");
-        }
-        */
 
         return GameContext.instance;
     }
@@ -167,31 +139,13 @@ export class GameContext {
     }
 
     /** Gets the canvas context from the GamaeContext cache Map. */
-    static getCtx() {
-        return GameContext.get("ctx");
+    static getCanvasContextDecorator() {
+        return GameContext.get("CanvasContextDecorator");
     }
 
     /** Gets the canvas from the GamaeContext cache Map. */
-    static getCanvas() {
-        return GameContext.get("canvas");
-    }
-
-    /** Gets the canvas width from the GamaeContext cache Map. */
-    static getCanvasWidth() {
-        return GameContext.get("width");
-    }
-
-    /** Gets the canvas height from the GamaeContext cache Map. */
-    static getCanvasHeight() {
-        return GameContext.get("height");
-    }
-
-    static getCanvasX() {
-
-    }
-
-    static getCanvasY() {
-
+    static getCanvasDecorator() {
+        return GameContext.get("CanvasDecorator");
     }
 
     /** Add class subscriber to send message to onClick method on click. */

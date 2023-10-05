@@ -4,9 +4,6 @@ import { GameValidationException } from "../exception/GameValidationException.js
 export class CanvasContextDecorator {
     constructor(canvasContext) {
         this.canvasContext = canvasContext;
-
-        GameContext.set("ctx", canvasContext);
-        GameContext.set("canvasContext", canvasContext);
     }
 
     /**
