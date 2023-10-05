@@ -2,6 +2,8 @@ import { GameValidationException } from "../exception/GameValidationException.js
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 import { Log } from "../logger/Log.js";
 import { CanvasContextDecorator } from "../context/CanvasContextDecorator.js";
+import { MouseListener } from "../listener/MouseListener.js";
+import { KeyboardListener } from "../listener/KeyboardListener.js";
 
 /**
  * The context for the game in reference to Inversion of Control, Shared Map Key/Values and Singleton
@@ -14,22 +16,22 @@ export class GameContext {
         }
 
         this.map = new Map();
-        new Log("debug" == document.title ? true : false);
 
+        GameContext.set("Log", new Log("debug" == document.title ? true : false));
         Log.info("Starting GameContext", this);
 
-        const bounds = canvas.getBoundingClientRect();
-
-        GameContext.set("Log", Log.getInstance());
         GameContext.set("canvas", canvas);
         GameContext.set("ctx", canvasContext);
         GameContext.set("canvasContext", canvasContext);
-        GameContext.set("bounds", bounds);
         GameContext.set("width", canvas.width);
         GameContext.set("height", canvas.height);
 
+        const bounds = canvas.getBoundingClientRect();
+        GameContext.set("bounds", bounds);
+
         GameContext.setClass(new CanvasContextDecorator(canvasContext));
-        Log.info("Loaded CanvasContextDecorator(canvasContext)", this);
+        GameContext.setClass(new MouseListener());
+        GameContext.setClass(new KeyboardListener());
 
         if (canvas.width != bounds.width || canvas.height != bounds.height) {
             throw new GameDeveloperException("Browser auto-resizing to a different resolution is not yet supported!");
@@ -160,6 +162,23 @@ export class GameContext {
     /** Gets the canvas height from the GamaeContext cache Map. */
     static getHeight() {
         return GameContext.get("height");
+    }
+
+    /** Add class subscriber to send message to onClick method on click. */
+    static addClickSubscriber(subscriber) {
+        if (null == GameContext.getNoFail("ClickSubscribers")) {
+            GameContext.set("ClickSubscribers", []);
+        }
+        GameContext.get("ClickSubscribers").push(subscriber);
+    }
+
+    /** Get array of class subscribers to send message to onClick method on click. */
+    static getClickSubscribers() {
+        const clickSubscribers = GameContext.getNoFail("ClickSubscribers");
+        if (null != clickSubscribers) {
+            return clickSubscribers;
+        }
+        return [];
     }
 
     /**
