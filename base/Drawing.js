@@ -1,5 +1,6 @@
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 import { GameContext } from "../context/GameContext.js";
+import { between } from "../util/MathUtils.js";
 
 export class Drawing {
     constructor() {
