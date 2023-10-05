@@ -3,31 +3,20 @@
 <head>
   <title>debug</title>
   <style>
-    * {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-    }
-  
     body {
       background-color: black;
     }
-  
+
+    div {
+      width: 100%;
+      height: 100vh;
+    }
+
     #game-canvas {
-      image-rendering: pixelated;
+      width: 100%;
+      height: 100vh;
     }
-  
-    #game-wrapper {
-      width: 1280px;
-      height: 720px;
-      padding-left: 1em;
-      padding-right: 1em;
-      border: 5px solid;
-      border-color: white;
-      margin: 0 auto;
-      margin-top: 20px;
-    }
-  
+
     img {
       display: none;
     }
@@ -35,8 +24,8 @@
 </head>
 
 <body>
-  <div id="game-wrapper" width="1280" height="720">
-    <canvas id="game-canvas" width="1280" height="720"></canvas>
+  <div id="game-wrapper">
+    <canvas id="game-canvas"></canvas>
   </div>
   <script type="module" src="gamedev.js" one="true"></script>
 </body>

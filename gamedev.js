@@ -28,7 +28,7 @@ window.addEventListener("load", function () {
 
             var loopCount = 0;
             if (!gameLoop) {
-                if(loopCount > 60) {
+                if (loopCount > 60) {
                     console.log("[WARN] gameLoop has not yet been registered. Game implementation has not called registerGameLoop(loop) function.");
                 }
                 loopCount++;

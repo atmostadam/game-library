@@ -1,9 +1,11 @@
 import { GameValidationException } from "../exception/GameValidationException.js";
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 import { Log } from "../logger/Log.js";
-import { CanvasContextDecorator } from "../context/CanvasContextDecorator.js";
+import { CanvasContextDecorator } from "../decorator/CanvasContextDecorator.js";
+import { CanvasDecorator } from "../decorator/CanvasDecorator.js";
 import { MouseListener } from "../listener/MouseListener.js";
 import { KeyboardListener } from "../listener/KeyboardListener.js";
+import { Constants } from "../configuration/Constants.js";
 
 /**
  * The context for the game in reference to Inversion of Control, Shared Map Key/Values and Singleton
@@ -16,44 +18,46 @@ export class GameContext {
         }
         GameContext.instance = this;
 
-        GameContext.COLOR_GREEN = "green";
-        GameContext.COLOR_RED = "red";
-        GameContext.COLOR_BLUE = "blue";
-        GameContext.COLOR_ORANGE = "orange";
-        GameContext.COLOR_PURPLE = "purple";
-
         this.map = new Map();
+
+        //const bounds = canvas.getBoundingClientRect();
+        //const cw = canvas.width;
+        //const bw = bounds.width;
+        //const ch = canvas.height;
+        //const bh = bounds.height;
+
+        //GameContext.set("width", cw);
+        //GameContext.set("height", ch);
+        //GameContext.set("boundsW", ch);
+        //GameContext.set("boundsH", bh);
+        //canvas.width = bw;
+        //canvas.height = bh;
 
         GameContext.set("Log", new Log("debug" == document.title ? true : false));
         Log.info("Starting GameContext", this);
 
-        GameContext.set("canvas", canvas);
-        GameContext.set("ctx", canvasContext);
-        GameContext.set("canvasContext", canvasContext);
-        GameContext.set("width", canvas.width);
-        GameContext.set("height", canvas.height);
+        GameContext.setClass(new Constants());
 
-        const bounds = canvas.getBoundingClientRect();
-        GameContext.set("bounds", bounds);
+        //GameContext.set("bounds", bounds);
 
         GameContext.setClass(new CanvasContextDecorator(canvasContext));
+        GameContext.setClass(new CanvasDecorator(canvas));
+
         GameContext.setClass(new MouseListener());
         GameContext.setClass(new KeyboardListener());
 
-        const cw = canvas.width;
-        const bw = bounds.width;
-        const ch = canvas.height;
-        const bh = bounds.height;
 
+        /*
         if (cw != bw && Math.ceil(cw) != Math.ceil(bw) && Math.floor(cw) != Math.floor(bw)) {
-            throw new GameDeveloperException("Application requires [" + cw + "x" + ch + "]. Browser resized to [" + bw + "x" + bh + 
+            throw new GameDeveloperException("Application requires [" + cw + "x" + ch + "]. Browser resized to [" + bw + "x" + bh +
                 "] which crashed the application. Browser auto-resizing to a different resolution is not yet supported!");
         }
 
         if (ch != bh && Math.ceil(ch) != Math.ceil(bh) && Math.floor(ch) != Math.floor(bh)) {
-            throw new GameDeveloperException("Application requires [" + cw + "x" + ch + "]. Browser resized to [" + bw + "x" + bh + 
+            throw new GameDeveloperException("Application requires [" + cw + "x" + ch + "]. Browser resized to [" + bw + "x" + bh +
                 "] which crashed the application. Browser auto-resizing to a different resolution is not yet supported!");
         }
+        */
 
         return GameContext.instance;
     }
@@ -187,7 +191,7 @@ export class GameContext {
     }
 
     static getCanvasY() {
-        
+
     }
 
     /** Add class subscriber to send message to onClick method on click. */
