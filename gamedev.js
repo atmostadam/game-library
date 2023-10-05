@@ -26,8 +26,12 @@ window.addEventListener("load", function () {
 
             window.requestAnimationFrame(animate);
 
+            var loopCount = 0;
             if (!gameLoop) {
-                console.log("[WARN] gameLoop has not yet been registered. Game implementation has not called registerGameLoop(loop) function.");
+                if(loopCount > 60) {
+                    console.log("[WARN] gameLoop has not yet been registered. Game implementation has not called registerGameLoop(loop) function.");
+                }
+                loopCount++;
             }
 
             if (sixtyFps) {
@@ -35,7 +39,7 @@ window.addEventListener("load", function () {
             }
         } catch (e) {
             canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-            console.error("APPLICATION HAS CRASHED!", e, this);
+            console.error("[FATAL] APPLICATION HAS CRASHED!", e, this);
             throw e;
         }
     }

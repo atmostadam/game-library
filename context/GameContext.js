@@ -11,9 +11,10 @@ import { KeyboardListener } from "../listener/KeyboardListener.js";
  */
 export class GameContext {
     constructor(canvas, canvasContext) {
-        if (!GameContext.instance) {
-            GameContext.instance = this;
+        if (GameContext.instance) {
+            throw new GameDeveloperException("[FATAL] Developer Error. GameContext is an enforced SINGLETON so new can only be used once.");
         }
+        GameContext.instance = this;
 
         GameContext.COLOR_GREEN = "green";
         GameContext.COLOR_RED = "red";
@@ -39,8 +40,19 @@ export class GameContext {
         GameContext.setClass(new MouseListener());
         GameContext.setClass(new KeyboardListener());
 
-        if (canvas.width != bounds.width || canvas.height != bounds.height) {
-            throw new GameDeveloperException("Browser auto-resizing to a different resolution is not yet supported!");
+        const cw = canvas.width;
+        const bw = bounds.width;
+        const ch = canvas.height;
+        const bh = bounds.height;
+
+        if (cw != bw && Math.ceil(cw) != Math.ceil(bw) && Math.floor(cw) != Math.floor(bw)) {
+            throw new GameDeveloperException("Application requires [" + cw + "x" + ch + "]. Browser resized to [" + bw + "x" + bh + 
+                "] which crashed the application. Browser auto-resizing to a different resolution is not yet supported!");
+        }
+
+        if (ch != bh && Math.ceil(ch) != Math.ceil(bh) && Math.floor(ch) != Math.floor(bh)) {
+            throw new GameDeveloperException("Application requires [" + cw + "x" + ch + "]. Browser resized to [" + bw + "x" + bh + 
+                "] which crashed the application. Browser auto-resizing to a different resolution is not yet supported!");
         }
 
         return GameContext.instance;
@@ -161,13 +173,21 @@ export class GameContext {
     }
 
     /** Gets the canvas width from the GamaeContext cache Map. */
-    static getWidth() {
+    static getCanvasWidth() {
         return GameContext.get("width");
     }
 
     /** Gets the canvas height from the GamaeContext cache Map. */
-    static getHeight() {
+    static getCanvasHeight() {
         return GameContext.get("height");
+    }
+
+    static getCanvasX() {
+
+    }
+
+    static getCanvasY() {
+        
     }
 
     /** Add class subscriber to send message to onClick method on click. */

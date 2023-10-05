@@ -1,8 +1,9 @@
 export class GameDeveloperException extends Error {
-  constructor(message, fileName, lineNumber) {
+  constructor(message, instance) {
     super(message);
-    this.fileName = fileName;
-    this.lineNumber = lineNumber;
-    console.error("FATAL CRASH! GameDeveloperException -> message [" + message + "] fileName [" + fileName + "] lineNumber [" + lineNumber + "]");
+    if(!message || !instance) {
+      console.error("[FATAL] Developer Error! Input variables for Exception cannot be null: GameDeveloperException(" + message + ", " + instance + ")]");
+    }
+    console.error("[FATAL] FATAL CRASH! GameDeveloperException -> message [" + message + "]", instance);
   }
 }
