@@ -1,4 +1,5 @@
 import { GameContext } from "./../context/GameContext.js";
+import { Log } from "./../logger/Log.js";
 
 export class MouseListener {
     constructor() {
@@ -6,7 +7,8 @@ export class MouseListener {
             const rect = GameContext.getCanvas().getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            GameContext.getClickSubscribers().forEach(c => c.onClick(x, y));
+            Log.info("User clicked [" + x + ", " + y + "] so run onClick forEach " + GameContext.getClickSubscribers());
+            GameContext.getClickSubscribers().forEach(c => { c.onClick(x, y); });
         });
     }
 }

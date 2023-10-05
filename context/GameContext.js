@@ -122,7 +122,7 @@ export class GameContext {
      * @returns The value associated to the key or null
      */
     static getNoFail(key) {
-        return GameContext.instance.map.get(key);
+        return GameContext.contains(key) ? GameContext.instance.map.get(key) : null;
     }
 
     /**
@@ -172,19 +172,15 @@ export class GameContext {
 
     /** Add class subscriber to send message to onClick method on click. */
     static addClickSubscriber(subscriber) {
-        if (null == GameContext.getNoFail("ClickSubscribers")) {
-            GameContext.set("ClickSubscribers", []);
-        }
-        GameContext.get("ClickSubscribers").push(subscriber);
+        GameContext.getClickSubscribers().push(subscriber);
     }
 
     /** Get array of class subscribers to send message to onClick method on click. */
     static getClickSubscribers() {
-        const clickSubscribers = GameContext.getNoFail("ClickSubscribers");
-        if (null != clickSubscribers) {
-            return clickSubscribers;
+        if (!GameContext.contains("ClickSubscribers")) {
+            GameContext.set("ClickSubscribers", []);
         }
-        return [];
+        return GameContext.get("ClickSubscribers");
     }
 
     /**
