@@ -15,6 +15,12 @@ export class GameContext {
             GameContext.instance = this;
         }
 
+        GameContext.COLOR_GREEN = "green";
+        GameContext.COLOR_RED = "red";
+        GameContext.COLOR_BLUE = "blue";
+        GameContext.COLOR_ORANGE = "orange";
+        GameContext.COLOR_PURPLE = "purple";
+
         this.map = new Map();
 
         GameContext.set("Log", new Log("debug" == document.title ? true : false));
