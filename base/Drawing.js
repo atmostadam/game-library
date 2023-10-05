@@ -1,6 +1,6 @@
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 import { GameContext } from "../context/GameContext.js";
-import { between } from "../util/MathUtils.js";
+import { insideRectangle } from "../util/ClickingUtils.js";
 
 export class Drawing {
     constructor() {
@@ -56,7 +56,7 @@ export class Drawing {
 
     /** See if click condition is true. */
     onClick(x, y) {
-        if (between(x, this.x, this.x + this.w) && between(y, this.y, this.y + this.h)) {
+        if (insideRectangle(x, y, this.x, this.y, this.w, this.h)) {
             this.click();
         }
     }
