@@ -6,45 +6,60 @@ export class CanvasDecorator {
         const bounds = this.canvas.getBoundingClientRect();
         this.x = Math.ceil(bounds.left);
         this.y = Math.ceil(bounds.top);
-        this.browserWidth = Math.ceil(bounds.width);
-        this.browserHeight = Math.ceil(bounds.height);
+        this.width = Math.ceil(bounds.width);
+        this.height = Math.ceil(bounds.height);
         this.canvasWidth = this.browserWidth
         this.canvasHeight = this.browserHeight
+
+        this.margin = 30;
 
         Log.info("Browser X & Y [x=" + this.x + ", y=" + this.y + "]", this);
         Log.info("Browser W & H [width=" + this.browserWidth + ", height=" + this.browserHeight + "]", this);
         Log.info("Canvas W & H [width=" + this.canvasWidth + ", height=" + this.canvasHeight + "]", this);
     }
 
+    /** Width of Canvas resized to width of browser. */
     getWidth() {
-        return this.browserWidth;
+        return this.width;
     }
 
+    /** Height of Canvas resized to height of browser. */
     getHeight() {
-        return this.browserHeight;
+        return this.height;
     }
 
-    getX() {
+    /** X position after adding Browser buffer. */
+    getBrowserX() {
         return this.x;
     }
 
-    getY() {
+    /** Y position after adding Browser buffer. */
+    getBrowserY() {
         return this.y;
     }
 
-    getBrowserWidth() {
-        return this.browserWidth;
+    /** Margin applying to top, bottom, left and right. */
+    getMargin() {
+        return this.margin;
     }
 
-    getBrowserHeight() {
-        return this.browserHeight;
+    /** Left X (0) plus Browser Buffer plus Margin. */
+    getRealLeft() {
+        return this.x + this.margin;
     }
 
-    getCanvasWidth() {
-        return this.canvasWidth;
+    /** Right X (max) minus Browser Buffer minus Margin. */
+    getRealRight() {
+        return this.width - this.margin - this.x;
     }
 
-    getCanvasHeight() {
-        return this.canvasHeight;
+    /** Top Y (0) plus Browser Buffer plus Margin. */
+    getRealTop() {
+        return this.y + this.margin;
+    }
+
+    /** Bottom Y (max) minus Browser Buffer minus Margin. */
+    getRealBottom() {
+        return this.height - this.margin - this.x;
     }
 }
