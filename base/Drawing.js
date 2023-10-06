@@ -27,31 +27,45 @@ export class Drawing {
     }
 
     drawImageLoaded() {
-        this.getCtxDecorator().drawImage(this.image, this.ix, this.iy, this.w, this.h, this.x, this.y, this.sw, this.sh);
+        this.getCanvasContextDecorator().drawImage(this.image, this.ix, this.iy, this.w, this.h, this.x, this.y, this.sw, this.sh);
     }
 
     drawTextLoaded() {
-        this.getCtxDecorator().drawText(this.text, this.font, this.color, this.x, this.y);
+        this.getCanvasContextDecorator().drawText(this.text, this.font, this.color, this.x, this.y);
     }
 
     drawRectangleLoaded() {
-        this.getCtxDecorator().drawRectangle(this.size, this.color, this.x, this.y, this.w, this.h);
+        this.getCanvasContextDecorator().drawRectangle(this.size, this.color, this.x, this.y, this.w, this.h);
     }
 
     drawFilledRectangleLoaded() {
-        this.getCtxDecorator().drawFilledRectangle(this.color, this.x, this.y, this.w, this.h);
+        this.getCanvasContextDecorator().drawFilledRectangle(this.color, this.x, this.y, this.w, this.h);
     }
 
     drawCircleLoaded() {
-        this.getCtxDecorator().drawCircle(this.color, this.x, this.y);
+        this.getCanvasContextDecorator().drawCircle(this.color, this.x, this.y);
     }
 
     drawFilledCircleLoaded() {
-        this.getCtxDecorator().drawFilledCircle(this.color, this.x, this.y);
+        this.getCanvasContextDecorator().drawFilledCircle(this.color, this.x, this.y);
     }
 
     drawBackgroundLoaded() {
-        this.getCtxDecorator().drawImage(this.image, 0, 0, this.getWidth(), this.getHeight(), 0, 0, this.getWidth(), this.getHeight());
+        this.getCanvasContextDecorator().drawImage(this.image, 0, 0, this.getCanvasDecorator().getWidth(),
+            this.getCanvasDecorator().getHeight(), 0, 0, this.getCanvasDecorator().getWidth(),
+            this.getCanvasDecorator().getHeight());
+    }
+
+    getCanvasDecorator() {
+        return GameContext.get("CanvasDecorator");
+    }
+
+    getCanvasContextDecorator() {
+        return GameContext.get("CanvasContextDecorator");
+    }
+
+    getImage(id) {
+        return this.getCanvasContextDecorator().getImageById(id);
     }
 
     /** See if click condition is true. */
@@ -64,21 +78,5 @@ export class Drawing {
     /** When clicked. */
     click() {
 
-    }
-
-    getImage(id) {
-        return getImage(id);
-    }
-
-    getWidth() {
-        return GameContext.getCanvas().width;
-    }
-
-    getHeight() {
-        return GameContext.getCanvas().height;
-    }
-
-    getCtxDecorator() {
-        return GameContext.get("CanvasContextDecorator");
     }
 }
