@@ -180,6 +180,11 @@ export class CanvasContextDecorator {
         return image;
     }
 
+    /** Get canvas context being decorated. */
+    getCanvasContext() {
+        return this.canvasContext;
+    }
+
     /**
      * Singleton design pattern method to get singleton instance.
      * 

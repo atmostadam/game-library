@@ -4,7 +4,7 @@ import { Log } from "./../logger/Log.js";
 export class MouseListener {
     constructor() {
         window.addEventListener('click', (e) => {
-            const rect = GameContext.getCanvas().getBoundingClientRect();
+            const rect = GameContext.getCanvasDecorator().getCanvas().getBoundingClientRect();
             const x = e.clientX; // - rect.left;
             const y = e.clientY; // - rect.top;
             Log.info("User clicked [" + x + ", " + y + "] so run onClick forEach " + GameContext.getClickSubscribers(), this);

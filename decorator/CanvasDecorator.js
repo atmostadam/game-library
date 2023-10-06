@@ -62,4 +62,9 @@ export class CanvasDecorator {
     getRealBottom() {
         return this.height - this.margin - this.x;
     }
+
+    /** Canvas being decorated. */
+    getCanvas() {
+        return this.canvas;
+    }
 }
