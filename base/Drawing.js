@@ -5,19 +5,61 @@ import { CanvasContextDecorator } from "../decorator/CanvasContextDecorator.js";
 
 export class Drawing {
     constructor() {
+        this.cooldownTicks = 0;
         this.hidden = false;
+        this.cooldown = false;
     }
 
     load() {
         throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override load()");
     }
 
-    update(tick) {
-        throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override update(tick)");
+    update(tick, cooldownTicks) {
+        if (this.hidden) {
+            return;
+        }
+        if (this.cooldown) {
+            this.updateCooldown(tick, cooldownTicks);
+        } else {
+            this.safeUpdate(tick);
+        }
+    }
+
+    updateCooldown(tick, cooldownTicks) {
+        if (this.cooldownDuration === 0) {
+            this.cooldown = true;
+            this.cooldownTicks = tick + cooldownTicks;
+            return;
+        }
+        if (this.cooldownTicks > tick) {
+            this.cooldownTicks = 0;
+            this.cooldown = false;
+            return;
+        }
+        this.safeUpdate(tick);
+    }
+
+    safeUpdate(tick) {
+        throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override safeDraw()");
     }
 
     draw() {
-        throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override draw()");
+        if (this.hidden) {
+            return;
+        }
+        if (this.cooldown) {
+            this.drawCooldown();
+        } else {
+            this.safeDraw();
+        }
+    }
+
+    drawCooldown() {
+        throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override drawCooldown()");
+    }
+
+    safeDraw() {
+        throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override safeDraw()");
     }
 
     clear() {
@@ -80,5 +122,22 @@ export class Drawing {
 
     hide() {
         this.hidden = true;
+    }
+
+    startCooldown(cooldownDuration) {
+        if (this.cooldownDuration !== 0) {
+            throw new GameDeveloperException("Unable to start cooldown timer because the timer is already running for startCooldown(cooldownDuration)");
+        }
+        this.cooldown = true;
+        this.cooldownDuration = cooldownDuration;
+    }
+
+    stopCooldown() {
+        this.cooldown = false;
+    }
+
+    clearCooldown() {
+        this.cooldown = false;
+        this.cooldownDuration = 0;
     }
 }
