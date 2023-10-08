@@ -1,6 +1,7 @@
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 import { GameContext } from "../context/GameContext.js";
 import { insideRectangle } from "../util/ClickingUtils.js";
+import { CanvasContextDecorator } from "../decorator/CanvasContextDecorator.js";
 
 export class Drawing {
     constructor() {
@@ -57,35 +58,27 @@ export class Drawing {
             this.CanvasDecorator.getHeight());
     }
 
-    CanvasDecorator {
-    return GameContext.get("CanvasDecorator");
-}
-
-    CanvasContextDecorator {
-    return GameContext.get("CanvasContextDecorator");
-}
-
-getImage(id) {
-    return CanvasContextDecorator.getImageById(id);
-}
-
-/** See if click condition is true. */
-onClick(x, y) {
-    if (insideRectangle(x, y, this.x, this.y, this.w, this.h)) {
-        this.click();
+    getImage(id) {
+        return CanvasContextDecorator.getImageById(id);
     }
-}
 
-/** When clicked. */
-click() {
+    /** See if click condition is true. */
+    onClick(x, y) {
+        if (insideRectangle(x, y, this.x, this.y, this.w, this.h)) {
+            this.click();
+        }
+    }
 
-}
+    /** When clicked. */
+    click() {
 
-show() {
-    this.hidden = false;
-}
+    }
 
-hide() {
-    this.hidden = true;
-}
+    show() {
+        this.hidden = false;
+    }
+
+    hide() {
+        this.hidden = true;
+    }
 }
