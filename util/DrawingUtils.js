@@ -1,4 +1,4 @@
-import { GameContext } from "../context/GameContext.js";
+import { CanvasContextDecorator } from "../decorator/CanvasContextDecorator.js";
 
 /**
  * Draws an image onto the canvas.
@@ -8,7 +8,7 @@ import { GameContext } from "../context/GameContext.js";
  * @param {number} y     y coordinate on the canvas in pixels,
  */
 export function drawImageSimple(image, x, y) {
-    GameContext.get("CanvasContextDecorator").drawImage(image, x, y);
+    CanvasContextDecorator.drawImage(image, x, y);
 }
 
 /**
@@ -19,7 +19,7 @@ export function drawImageSimple(image, x, y) {
  * @param {number} y     y coordinate on the canvas in pixels,
  */
 export function drawImageByIdSimple(id, x, y) {
-    GameContext.get("CanvasContextDecorator").drawImage(getImage(id), x, y);
+    CanvasContextDecorator.drawImage(getImage(id), x, y);
 }
 
 /**
@@ -36,7 +36,7 @@ export function drawImageByIdSimple(id, x, y) {
  * @param {number} sh    Scaled height in pixels.
  */
 export function drawImage(image, ix, iy, w, h, x, y, sw, sh) {
-    GameContext.get("CanvasContextDecorator").drawImage(image, ix, iy, w, h, x, y, sw, sh);
+    CanvasContextDecorator.drawImage(image, ix, iy, w, h, x, y, sw, sh);
 }
 
 /**
@@ -53,7 +53,7 @@ export function drawImage(image, ix, iy, w, h, x, y, sw, sh) {
  * @param {number} sh    Scaled height in pixels.
  */
 export function drawImageById(id, ix, iy, w, h, x, y, sw, sh) {
-    GameContext.get("CanvasContextDecorator").drawImageById(id, ix, iy, w, h, x, y, sw, sh);
+    CanvasContextDecorator.drawImageById(id, ix, iy, w, h, x, y, sw, sh);
 }
 
 /**
@@ -66,7 +66,7 @@ export function drawImageById(id, ix, iy, w, h, x, y, sw, sh) {
  * @param {number} y        y coordinate on the canvas in pixels.
  */
 export function drawText(text, font, color, x, y) {
-    GameContext.get("CanvasContextDecorator").drawText(text, font, color, x, y);
+    CanvasContextDecorator.drawText(text, font, color, x, y);
 }
 
 /**
@@ -80,7 +80,7 @@ export function drawText(text, font, color, x, y) {
  * @param {number} h       Height in pixels.
  */
 export function drawRectangle(size, color, x, y, w, h) {
-    GameContext.get("CanvasContextDecorator").drawRectangle(size, color, x, y, w, h);
+    CanvasContextDecorator.drawRectangle(size, color, x, y, w, h);
 }
 
 /**
@@ -93,7 +93,7 @@ export function drawRectangle(size, color, x, y, w, h) {
  * @param {number} h       Height in pixels.
  */
 export function drawFilledRectangle(color, x, y, w, h) {
-    GameContext.get("CanvasContextDecorator").drawFilledRectangle(color, x, y, w, h);
+    CanvasContextDecorator.drawFilledRectangle(color, x, y, w, h);
 }
 
 /**
@@ -110,7 +110,7 @@ export function drawFilledRectangle(color, x, y, w, h) {
  * @example drawCircle(5, "red", 100, 75, 50, 0, 2);
  */
 export function drawCircle(size, color, x, y, r, s, e) {
-    GameContext.get("CanvasContextDecorator").drawCircle(color, x, y, r, s, e);
+    CanvasContextDecorator.drawCircle(color, x, y, r, s, e);
 }
 
 /**
@@ -126,7 +126,7 @@ export function drawCircle(size, color, x, y, r, s, e) {
  * @example drawCircle(5, "red", 100, 75, 50, 0, 2);
  */
 export function drawFilledCircle(color, x, y, r, s, e) {
-    GameContext.get("CanvasContextDecorator").drawFilledCircle(color, x, y, r, s, e);
+    CanvasContextDecorator.drawFilledCircle(color, x, y, r, s, e);
 }
 
 /**
@@ -135,5 +135,5 @@ export function drawFilledCircle(color, x, y, r, s, e) {
  * @param {Image} image The Image Object created from the HTML Document.
  */
 export function drawBackground(image) {
-    GameContext.get("CanvasContextDecorator").drawBackground(image);
+    CanvasContextDecorator.drawBackground(image);
 }

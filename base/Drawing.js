@@ -1,6 +1,6 @@
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
-import { GameContext } from "../context/GameContext.js";
 import { insideRectangle } from "../util/ClickingUtils.js";
+import { CanvasDecorator } from "../decorator/CanvasDecorator.js";
 import { CanvasContextDecorator } from "../decorator/CanvasContextDecorator.js";
 
 export class Drawing {
@@ -53,9 +53,9 @@ export class Drawing {
     }
 
     drawBackgroundLoaded() {
-        CanvasContextDecorator.drawImage(this.image, 0, 0, this.CanvasDecorator.getWidth(),
-            this.CanvasDecorator.getHeight(), 0, 0, this.CanvasDecorator.getWidth(),
-            this.CanvasDecorator.getHeight());
+        CanvasContextDecorator.drawImage(this.image, 0, 0, CanvasDecorator.getWidth(),
+            CanvasDecorator.getHeight(), 0, 0, CanvasDecorator.getWidth(),
+            CanvasDecorator.getHeight());
     }
 
     getImage(id) {
