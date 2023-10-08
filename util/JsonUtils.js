@@ -1,7 +1,7 @@
 import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 
-export function jsonification(str) {
-    var jsonification = JSON.stringify(str);
+export function object2JsonString(obj) {
+    var jsonification = JSON.stringify(obj);
     if (null == jsonification) {
         var message = "GameDeveloperException -> JSON Corruption -> Cookie Local Storage Entry is Corrupt! Malformed Json!";
         console.error(message);
@@ -10,8 +10,8 @@ export function jsonification(str) {
     return jsonification;
 }
 
-export function objectification(json) {
-    var obj = JSON.parse(json);
+export function jsonString2Object(jsonString) {
+    var obj = JSON.parse(jsonString);
     if (null == catFromJson) {
         var message = "GameDeveloperException -> JSON Corruption -> Local Storage is Corrupt! Malformed Json!";
         console.error(message);

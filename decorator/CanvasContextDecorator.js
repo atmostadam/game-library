@@ -1,9 +1,17 @@
 import { GameContext } from "../context/GameContext.js";
 import { GameValidationException } from "../exception/GameValidationException.js";
+import { GameDeveloperException } from "../exception/GameDeveloperException.js";
 
 export class CanvasContextDecorator {
     constructor(canvasContext) {
+        if (CanvasContextDecorator.instance) {
+            throw new GameDeveloperException("[FATAL] Developer Error. CanvasContextDecorator is an enforced SINGLETON so new can only be used once.");
+        }
+        CanvasContextDecorator.instance = this;
+
         this.canvasContext = canvasContext;
+
+        return CanvasContextDecorator.instance;
     }
 
     /**
@@ -13,8 +21,8 @@ export class CanvasContextDecorator {
      * @param {number} x     x coordinate on the canvas in pixels.
      * @param {number} y     y coordinate on the canvas in pixels.
      * */
-    drawImageSimple(image, x, y) {
-        this.canvasContext.drawImage(image, x, y);
+    static drawImageSimple(image, x, y) {
+        this.instance.canvasContext.drawImage(image, x, y);
     }
 
     /**
@@ -24,8 +32,8 @@ export class CanvasContextDecorator {
      * @param {number} x     x coordinate on the canvas in pixels,
      * @param {number} y     y coordinate on the canvas in pixels,
      */
-    drawImageByIdSimple(id, x, y) {
-        this.canvasContext.drawImage(this.getImage(id), x, y);
+    static drawImageByIdSimple(id, x, y) {
+        this.instance.canvasContext.drawImage(this.getImage(id), x, y);
     }
 
     /**
@@ -41,8 +49,8 @@ export class CanvasContextDecorator {
      * @param {number} sw    Scaled width in pixels.
      * @param {number} sh    Scaled height in pixels.
      */
-    drawImage(image, ix, iy, w, h, x, y, sw, sh) {
-        this.canvasContext.drawImage(image, ix, iy, w, h, x, y, sw, sh);
+    static drawImage(image, ix, iy, w, h, x, y, sw, sh) {
+        this.instance.canvasContext.drawImage(image, ix, iy, w, h, x, y, sw, sh);
     }
 
     /**
@@ -58,8 +66,8 @@ export class CanvasContextDecorator {
      * @param {number} sw    Scaled width in pixels.
      * @param {number} sh    Scaled height in pixels.
      */
-    drawImageById(id, ix, iy, w, h, x, y, sw, sh) {
-        this.canvasContext.drawImage(this.getImage(id), ix, iy, w, h, x, y, sw, sh);
+    static drawImageById(id, ix, iy, w, h, x, y, sw, sh) {
+        this.instance.canvasContext.drawImage(this.getImage(id), ix, iy, w, h, x, y, sw, sh);
     }
 
     /**
@@ -71,10 +79,10 @@ export class CanvasContextDecorator {
      * @param {number} x        x coordinate on the canvas in pixels.
      * @param {number} y        y coordinate on the canvas in pixels.
      */
-    drawText(text, font, color, x, y) {
-        this.canvasContext.font = font;
-        this.canvasContext.fillStyle = color;
-        this.canvasContext.fillText(text, x, y);
+    static drawText(text, font, color, x, y) {
+        this.instance.canvasContext.font = font;
+        this.instance.canvasContext.fillStyle = color;
+        this.instance.canvasContext.fillText(text, x, y);
     }
 
     /**
@@ -87,12 +95,12 @@ export class CanvasContextDecorator {
      * @param {number} w       Width in pixels.
      * @param {number} h       Height in pixels.
      */
-    drawRectangle(size, color, x, y, w, h) {
-        this.canvasContext.beginPath();
-        this.canvasContext.lineWidth = size;
-        this.canvasContext.strokeStyle = color;
-        this.canvasContext.rect(x, y, w, h);
-        this.canvasContext.stroke();
+    static drawRectangle(size, color, x, y, w, h) {
+        this.instance.canvasContext.beginPath();
+        this.instance.canvasContext.lineWidth = size;
+        this.instance.canvasContext.strokeStyle = color;
+        this.instance.canvasContext.rect(x, y, w, h);
+        this.instance.canvasContext.stroke();
     }
 
     /**
@@ -104,9 +112,9 @@ export class CanvasContextDecorator {
      * @param {number} w       Width in pixels.
      * @param {number} h       Height in pixels.
      */
-    drawFilledRectangle(color, x, y, w, h) {
-        this.canvasContext.fillStyle = color;
-        this.canvasContext.fillRect(x, y, w, h);
+    static drawFilledRectangle(color, x, y, w, h) {
+        this.instance.canvasContext.fillStyle = color;
+        this.instance.canvasContext.fillRect(x, y, w, h);
     }
 
     /**
@@ -122,12 +130,12 @@ export class CanvasContextDecorator {
      * 
      * @example drawCircle(5, "red", 100, 75, 50, 0, 2);
      */
-    drawCircle(size, color, x, y, r, s, e) {
-        this.canvasContext.beginPath();
-        this.canvasContext.arc(x, y, r, s, e * Math.PI);
-        this.canvasContext.strokeStyle = color;
-        this.canvasContext.lineWidth = size;
-        this.canvasContext.stroke();
+    static drawCircle(size, color, x, y, r, s, e) {
+        this.instance.canvasContext.beginPath();
+        this.instance.canvasContext.arc(x, y, r, s, e * Math.PI);
+        this.instance.canvasContext.strokeStyle = color;
+        this.instance.canvasContext.lineWidth = size;
+        this.instance.canvasContext.stroke();
     }
 
     /**
@@ -142,11 +150,11 @@ export class CanvasContextDecorator {
      * 
      * @example drawCircle(5, "red", 100, 75, 50, 0, 2);
      */
-    drawFilledCircle(color, x, y, r, s, e) {
-        this.canvasContext.beginPath();
-        this.canvasContext.arc(x, y, r, s, e * Math.PI);
-        this.canvasContext.fillStyle = color;
-        this.canvasContext.fill();
+    static drawFilledCircle(color, x, y, r, s, e) {
+        this.instance.canvasContext.beginPath();
+        this.instance.canvasContext.arc(x, y, r, s, e * Math.PI);
+        this.instance.canvasContext.fillStyle = color;
+        this.instance.canvasContext.fill();
     }
 
     /**
@@ -154,8 +162,8 @@ export class CanvasContextDecorator {
      * 
      * @param {Image} image The Image Object created from the HTML Document.
      */
-    drawBackground(image) {
-        this.canvasContext.drawImage(
+    static drawBackground(image) {
+        this.instance.canvasContext.drawImage(
             image,
             0,
             0,
@@ -172,9 +180,9 @@ export class CanvasContextDecorator {
      * 
      * @param {string} color   The color to use when drawing on the canvas.
      */
-    drawFilledBackground(color) {
-        this.canvasContext.fillStyle = color;
-        this.canvasContext.fillRect(0, 0, GameContext.getWidth(), GameContext.getHeight());
+    static drawFilledBackground(color) {
+        this.instance.canvasContext.fillStyle = color;
+        this.instance.canvasContext.fillRect(0, 0, GameContext.getWidth(), GameContext.getHeight());
     }
 
     /**
@@ -183,7 +191,7 @@ export class CanvasContextDecorator {
      * @param {string} id The id of the image to retrieve from the HTML Document.
      * @returns The Image Object from the HTML Document.
      */
-    getImage(id) {
+    static getImage(id) {
         const image = document.getElementById(id);
         if (null == image) {
             throw new GameValidationException("Image [" + id + "] is missing from Document body.");
@@ -192,8 +200,8 @@ export class CanvasContextDecorator {
     }
 
     /** Get canvas context being decorated. */
-    getCanvasContext() {
-        return this.canvasContext;
+    static getCanvasContext() {
+        return this.instance.canvasContext;
     }
 
     /**

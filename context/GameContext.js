@@ -138,16 +138,6 @@ export class GameContext {
         GameContext.instance.map.clear();
     }
 
-    /** Gets the canvas context from the GamaeContext cache Map. */
-    static getCanvasContextDecorator() {
-        return GameContext.get("CanvasContextDecorator");
-    }
-
-    /** Gets the canvas from the GamaeContext cache Map. */
-    static getCanvasDecorator() {
-        return GameContext.get("CanvasDecorator");
-    }
-
     /** Add class subscriber to send message to onClick method on click. */
     static addClickSubscriber(subscriber) {
         GameContext.getClickSubscribers().push(subscriber);
