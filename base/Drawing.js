@@ -4,6 +4,7 @@ import { insideRectangle } from "../util/ClickingUtils.js";
 
 export class Drawing {
     constructor() {
+        this.hidden = false;
     }
 
     load() {
@@ -43,11 +44,11 @@ export class Drawing {
     }
 
     drawCircleLoaded() {
-        this.getCanvasContextDecorator().drawCircle(this.color, this.x, this.y);
+        this.getCanvasContextDecorator().drawCircle(this.size, this.color, this.x, this.y, this.r, this.s, this.e);
     }
 
     drawFilledCircleLoaded() {
-        this.getCanvasContextDecorator().drawFilledCircle(this.color, this.x, this.y);
+        this.getCanvasContextDecorator().drawFilledCircle(this.color, this.x, this.y, this.r, this.s, this.e);
     }
 
     drawBackgroundLoaded() {
@@ -78,5 +79,13 @@ export class Drawing {
     /** When clicked. */
     click() {
 
+    }
+
+    show() {
+        this.hidden = false;
+    }
+
+    hide() {
+        this.hidden = true;
     }
 }

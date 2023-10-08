@@ -99,23 +99,34 @@ export function drawFilledRectangle(color, x, y, w, h) {
 /**
  * Draws an unfilled circle onto the canvas.
  * 
+ * @param {number} size    The width of the circle line.
  * @param {string} color   The color to use when drawing on the canvas.
  * @param {number} x       x coordinate on the canvas in pixels.
  * @param {number} y       y coordinate on the canvas in pixels.
+ * @param {number} r       radius in pixels.
+ * @param {number} s       start angle.
+ * @param {number} e       end angle (will be multipled by pi).
+ * 
+ * @example drawCircle(5, "red", 100, 75, 50, 0, 2);
  */
-export function drawCircle(color, x, y) {
-    GameContext.get("CanvasContextDecorator").drawCircle(color, x, y);
+export function drawCircle(size, color, x, y, r, s, e) {
+    GameContext.get("CanvasContextDecorator").drawCircle(color, x, y, r, s, e);
 }
 
 /**
  * Draws a filled circle onto the canvas.
  * 
- * @param {string} color The color to use when drawing on the canvas.
+ * @param {string} color   The color to use when drawing on the canvas.
  * @param {number} x       x coordinate on the canvas in pixels.
  * @param {number} y       y coordinate on the canvas in pixels.
+ * @param {number} r       radius in pixels.
+ * @param {number} s       start angle.
+ * @param {number} e       end angle (will be multipled by pi).
+ * 
+ * @example drawCircle(5, "red", 100, 75, 50, 0, 2);
  */
-export function drawFilledCircle(color, x, y) {
-    GameContext.get("CanvasContextDecorator").drawFilledCircle(color, x, y);
+export function drawFilledCircle(color, x, y, r, s, e) {
+    GameContext.get("CanvasContextDecorator").drawFilledCircle(color, x, y, r, s, e);
 }
 
 /**

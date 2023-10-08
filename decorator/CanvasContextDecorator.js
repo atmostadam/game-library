@@ -112,28 +112,39 @@ export class CanvasContextDecorator {
     /**
      * Draws an unfilled circle onto the canvas.
      * 
-     * @param {string} color The color to use when drawing on the canvas.
+     * @param {number} size    The width of the circle line.
+     * @param {string} color   The color to use when drawing on the canvas.
      * @param {number} x       x coordinate on the canvas in pixels.
      * @param {number} y       y coordinate on the canvas in pixels.
+     * @param {number} r       radius in pixels.
+     * @param {number} s       start angle.
+     * @param {number} e       end angle (will be multipled by pi).
+     * 
+     * @example drawCircle(5, "red", 100, 75, 50, 0, 2);
      */
-    drawCircle(color, x, y) {
+    drawCircle(size, color, x, y, r, s, e) {
         this.canvasContext.beginPath();
-        this.canvasContext.arc(x, y, 65, 0, 2 * Math.PI);
+        this.canvasContext.arc(x, y, r, s, e * Math.PI);
         this.canvasContext.strokeStyle = color;
-        this.canvasContext.lineWidth = 10;
+        this.canvasContext.lineWidth = size;
         this.canvasContext.stroke();
     }
 
     /**
      * Draws a filled circle onto the canvas.
      * 
-     * @param {string} color The color to use when drawing on the canvas.
+     * @param {string} color   The color to use when drawing on the canvas.
      * @param {number} x       x coordinate on the canvas in pixels.
      * @param {number} y       y coordinate on the canvas in pixels.
+     * @param {number} r       radius in pixels.
+     * @param {number} s       start angle.
+     * @param {number} e       end angle (will be multipled by pi).
+     * 
+     * @example drawCircle(5, "red", 100, 75, 50, 0, 2);
      */
-    drawFilledCircle(color, x, y) {
+    drawFilledCircle(color, x, y, r, s, e) {
         this.canvasContext.beginPath();
-        this.canvasContext.arc(x, y, 65, 0, 2 * Math.PI);
+        this.canvasContext.arc(x, y, r, s, e * Math.PI);
         this.canvasContext.fillStyle = color;
         this.canvasContext.fill();
     }
