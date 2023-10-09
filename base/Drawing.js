@@ -5,38 +5,38 @@ import { CanvasContextDecorator } from "../decorator/CanvasContextDecorator.js";
 
 export class Drawing {
     constructor() {
-        this.cooldownTicks = 0;
+        this.waitTicks = 0;
         this.hidden = false;
-        this.cooldown = false;
+        this.waiting = false;
     }
 
     load() {
         throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override load()");
     }
 
-    update(tick, cooldownTicks) {
+    update(tick, waitTicks) {
         if (this.hidden) {
             return;
         }
-        if (this.cooldown) {
-            this.updateCooldown(tick, cooldownTicks);
+        if (this.waiting) {
+            this.updateAndWait(tick, waitTicks);
         } else {
             this.safeUpdate(tick);
         }
     }
 
-    updateCooldown(tick, cooldownTicks) {
-        if (this.cooldownDuration === 0) {
-            this.cooldown = true;
-            this.cooldownTicks = tick + cooldownTicks;
+    updateAndWait(tick, waitTicks) {
+        if (this.waitTicks === 0) {
+            this.waitTicks = tick + waitTicks;
+            this.waiting = true;
             return;
         }
-        if (this.cooldownTicks > tick) {
-            this.cooldownTicks = 0;
-            this.cooldown = false;
-            return;
+        if (this.waitTicks > tick) {
+            this.waitTicks = 0;
+            this.waiting = false;
+        } else {
+            this.safeUpdate(tick);
         }
-        this.safeUpdate(tick);
     }
 
     safeUpdate(tick) {
@@ -47,14 +47,14 @@ export class Drawing {
         if (this.hidden) {
             return;
         }
-        if (this.cooldown) {
-            this.drawCooldown();
+        if (this.waiting) {
+            this.drawWaiting();
         } else {
             this.safeDraw();
         }
     }
 
-    drawCooldown() {
+    drawWaiting() {
         throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override drawCooldown()");
     }
 
@@ -139,5 +139,13 @@ export class Drawing {
     clearCooldown() {
         this.cooldown = false;
         this.cooldownDuration = 0;
+    }
+
+    onSleep() {
+
+    }
+
+    onWake() {
+
     }
 }

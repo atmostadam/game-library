@@ -1,4 +1,5 @@
 import { between } from "./MathUtils.js";
+import { Log } from "./../logger/Log.js";
 
 /**
  * Checks the rectangle's expected x, y, w and h to see if the user's click x and click y
@@ -12,10 +13,14 @@ import { between } from "./MathUtils.js";
  * @param {number} expectH      The height of the rectangle's expected click area.
  */
 export function insideRectangle(clickX, clickY, expectX, expectY, expectW, expectH) {
-    var w = expectX + expectW;
-    var h = expectY + expectH;
+    const w = expectX + expectW;
+    const h = expectY + expectH;
     if (between(clickX, expectX, w) && between(clickY, expectY, h)) {
+        Log.info("Clicked Inside? [true] expect x [" + x + "] between [minX=" + expectX + ", maxX=" + wh + "] expect y [" +
+            y + "] between [minY=" + expectY + ", maxY=" + h + "]");
         return true;
     }
+    Log.info("Clicked Inside? [false] expect x [" + x + "] between [minX=" + expectX + ", maxX=" + wh + "] expect y [" +
+        y + "] between [minY=" + expectY + ", maxY=" + h + "]");
     return false;
 }
