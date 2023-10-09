@@ -16,11 +16,11 @@ export function insideRectangle(clickX, clickY, expectX, expectY, expectW, expec
     const w = expectX + expectW;
     const h = expectY + expectH;
     if (between(clickX, expectX, w) && between(clickY, expectY, h)) {
-        Log.info("Clicked Inside? [true] expect x [" + x + "] between [minX=" + expectX + ", maxX=" + wh + "] expect y [" +
-            y + "] between [minY=" + expectY + ", maxY=" + h + "]");
+        Log.info("Clicked Inside? [true] expect x [" + clickX + "] between [minX=" + expectX + ", maxX=" + w + "] expect y [" +
+            clickY + "] between [minY=" + expectY + ", maxY=" + h + "]");
         return true;
     }
-    Log.info("Clicked Inside? [false] expect x [" + x + "] between [minX=" + expectX + ", maxX=" + wh + "] expect y [" +
-        y + "] between [minY=" + expectY + ", maxY=" + h + "]");
+    Log.info("Clicked Inside? [false] expect x [" + clickX + "] between [minX=" + expectX + ", maxX=" + w + "] expect y [" +
+        clickY + "] between [minY=" + expectY + ", maxY=" + h + "]");
     return false;
 }

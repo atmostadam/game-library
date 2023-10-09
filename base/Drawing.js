@@ -5,7 +5,7 @@ import { CanvasContextDecorator } from "../decorator/CanvasContextDecorator.js";
 
 export class Drawing {
     constructor() {
-        this.waitTicks = 0;
+        this.waitUntilTick = 0;
         this.hidden = false;
         this.waiting = false;
     }
@@ -48,14 +48,22 @@ export class Drawing {
             return;
         }
         if (this.waiting) {
-            this.drawWaiting();
+            if (this.waitTick !== 0) {
+                throw new GameDeveloperException("Unable to start wait timer because the timer is already running for wait(waitTick)");
+            }
+            if (this.waitUntilTick > this.tick) {
+                this.waitUntilTick = 0;
+                this.waiting = false;
+            } else {
+                this.drawWaiting();
+            }
         } else {
             this.safeDraw();
         }
     }
 
     drawWaiting() {
-        throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override drawCooldown()");
+        throw new GameDeveloperException("This method is ABSTRACT. Subclass MUST override drawWaiting()");
     }
 
     safeDraw() {
@@ -122,30 +130,5 @@ export class Drawing {
 
     hide() {
         this.hidden = true;
-    }
-
-    startCooldown(cooldownDuration) {
-        if (this.cooldownDuration !== 0) {
-            throw new GameDeveloperException("Unable to start cooldown timer because the timer is already running for startCooldown(cooldownDuration)");
-        }
-        this.cooldown = true;
-        this.cooldownDuration = cooldownDuration;
-    }
-
-    stopCooldown() {
-        this.cooldown = false;
-    }
-
-    clearCooldown() {
-        this.cooldown = false;
-        this.cooldownDuration = 0;
-    }
-
-    onSleep() {
-
-    }
-
-    onWake() {
-
     }
 }
