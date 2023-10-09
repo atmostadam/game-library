@@ -17,10 +17,10 @@ export function insideRectangle(clickX, clickY, expectX, expectY, expectW, expec
     const h = expectY + expectH;
     if (between(clickX, expectX, w) && between(clickY, expectY, h)) {
         Log.info("Clicked Inside? [true] expect x [" + clickX + "] between [minX=" + expectX + ", maxX=" + w + "] expect y [" +
-            clickY + "] between [minY=" + expectY + ", maxY=" + h + "]");
+            clickY + "] between [minY=" + expectY + ", maxY=" + h + "]", this);
         return true;
     }
     Log.info("Clicked Inside? [false] expect x [" + clickX + "] between [minX=" + expectX + ", maxX=" + w + "] expect y [" +
-        clickY + "] between [minY=" + expectY + ", maxY=" + h + "]");
+        clickY + "] between [minY=" + expectY + ", maxY=" + h + "]", this);
     return false;
 }
